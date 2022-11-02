@@ -15,34 +15,41 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        List <TreeNode> l1=new ArrayList<>();
-        // List <TreeNode> l2=new Arraylist<>();
-        InOrder(root,l1);
-        return arraySortedOrNot(l1,l1.size());
+//         List <TreeNode> l1=new ArrayList<>();
+//         // List <TreeNode> l2=new Arraylist<>();
+//         InOrder(root,l1);
+//         return arraySortedOrNot(l1,l1.size());
         
         
         
-    }
-    void InOrder(TreeNode root,List <TreeNode> l1){
-        if(root==null) return ;
-        InOrder(root.left,l1);
-        l1.add(root);
-        InOrder(root.right,l1);
+//     }
+//     void InOrder(TreeNode root,List <TreeNode> l1){
+//         if(root==null) return ;
+//         InOrder(root.left,l1);
+//         l1.add(root);
+//         InOrder(root.right,l1);
         
-    }
-    boolean arraySortedOrNot(List <TreeNode> l1, int n)
-    {
-        // Array has one or no element or the
-        // rest are already checked and approved.
-        if (n == 1 || n == 0)
-            return true;
+//     }
+//     boolean arraySortedOrNot(List <TreeNode> l1, int n)
+//     {
+//         // Array has one or no element or the
+//         // rest are already checked and approved.
+//         if (n == 1 || n == 0)
+//             return true;
  
-        // Unsorted pair found (Equal values allowed)
-        if (l1.get(n - 1).val <= l1.get(n - 2).val)
-            return false;
+//         // Unsorted pair found (Equal values allowed)
+//         if (l1.get(n - 1).val <= l1.get(n - 2).val)
+//             return false;
  
-        // Last pair was sorted
-        // Keep on checking
-        return arraySortedOrNot(l1, n - 1);
+//         // Last pair was sorted
+//         // Keep on checking
+//         return arraySortedOrNot(l1, n - 1);
+        return isValidBST(root,Long.MIN_VALUE,Long.MAX_VALUE);
     }
+     public boolean isValidBST(TreeNode root,long min,long max ){
+         if(root==null)return true;
+         if(root.val<=min || root.val>=max) return false;
+         return isValidBST(root.left,min,root.val)&& isValidBST(root.right,root.val,max);
+     }
+    
 }
