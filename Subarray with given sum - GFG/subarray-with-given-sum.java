@@ -57,9 +57,9 @@ class Solution
             // If currentSum becomes equal to sum,
             // then return true
             if (currentSum == sum) {
-                int p = i - 1;
+                // int p = i - 1;
                 ans.add(start+1);
-                ans.add(p+1);
+                ans.add(i);
                 return ans;
                 
                 // System.out.println(
