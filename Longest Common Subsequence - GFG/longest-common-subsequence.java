@@ -31,7 +31,10 @@ class Solution
     {
         // your code here
         int dp[][]=new int[x+1][y+1];
-        // Arrays.fill(dp,0);
+        for(int i=0;i<=x;i++){
+            Arrays.fill(dp[i],-1);
+            
+        }
         int ans=lcs(x, y, s1, s2,dp);
         
         return ans;
@@ -40,13 +43,18 @@ class Solution
     }
     
     static int lcs(int x, int y, String s1, String s2,int dp[][]){
-        for(int i=1;i<=x;i++){
-            for(int j=1;j<=y;j++){
-                if(s1.charAt(i-1)==s2.charAt(j-1)){
-                    dp[i][j]=dp[i-1][j-1]+1;
+        if(x==0 || y==0)return 0;
+        if(dp[x][y]!=-1)return dp[x][y];
+        // for(int i=1;i<=x;i++)
+        {
+            // for(int j=1;j<=y;j++)
+            {
+                if(s1.charAt(x-1)==s2.charAt(y-1)){
+                    // dp[i][j]=dp[i-1][j-1]+1;
+                    dp[x][y]=lcs(x-1,y-1,s1,s2,dp)+1;
                 }
                 else{
-                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                    dp[x][y]=Math.max(lcs(x-1,y,s1,s2,dp),lcs(x,y-1,s1,s2,dp));
                     
                 }
             }
