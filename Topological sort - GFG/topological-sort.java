@@ -66,28 +66,61 @@ class Solution
         // add your code here
         int[] ans=new int[V];
         boolean[] vis=new boolean[V];
-        Stack<Integer>s=new Stack<>();
-        for(int i=0;i<V;i++){
-            if(!vis[i]){
-                dfs(i,adj,s,vis);
+        int [] inDeg=new int[V];
+        Queue<Integer>q=new ArrayDeque<>();
+        for(ArrayList<Integer> list:adj){
+            for(Integer e:list){
+                inDeg[e]++;
             }
         }
-        int i=0;
-        while(!s.isEmpty()){
-            ans[i++]=s.pop();
+        bfs(V,adj,q,vis,inDeg,ans);
+        
+        // for(int i=0;i<V;i++){
+        //     if(!vis[i]){
+        //         dfs(i,adj,s,vis);
+        //     }
+        // }
+        // int i=0;
+        // while(!s.isEmpty()){
+        //     ans[i++]=s.pop();
             
-        }
+        // }
         return ans;
         
         
     }
-    static void dfs(int v, ArrayList<ArrayList<Integer>> adj,Stack<Integer>s,boolean[] vis){
-        vis[v]=true;
-        for(Integer neighbor:adj.get(v)){
-            if(!vis[neighbor]){
-                dfs(neighbor,adj,s,vis);
+    static void bfs(int V, ArrayList<ArrayList<Integer>> adj,Queue<Integer> q,boolean[] vis,int inDeg[],int ans[])
+    {
+        for(int i=0;i<V;i++){
+            if(inDeg[i]==0){
+                q.add(i);
             }
         }
-        s.push(v);
+        int i=0;
+        
+        while(!q.isEmpty()){
+            int curr=q.poll();
+            ans[i]=curr;
+            i++;
+            
+            for(Integer neighbor:adj.get(curr)){
+                if(--inDeg[neighbor]==0){
+                    q.add(neighbor);
+                }
+            }
+        }
+        
     }
+    
+    
+    
+    // static void dfs(int v, ArrayList<ArrayList<Integer>> adj,Stack<Integer>s,boolean[] vis){
+    //     vis[v]=true;
+    //     for(Integer neighbor:adj.get(v)){
+    //         if(!vis[neighbor]){
+    //             dfs(neighbor,adj,s,vis);
+    //         }
+    //     }
+    //     s.push(v);
+    // }
 }
