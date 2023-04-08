@@ -41,9 +41,11 @@ public class Main {
 class Solution {
     ArrayList<Integer> valueEqualToIndex(int arr[], int n) {
         // code here
-        ArrayList<Integer> ans=new ArrayList<Integer>();
+        ArrayList<Integer> ans=new ArrayList<>();
         for(int i=0;i<n;i++){
-            if(i+1==arr[i]) ans.add(arr[i]);
+            if(arr[i]-1==i){
+                ans.add(i+1);
+            }
         }
         return ans;
     }
