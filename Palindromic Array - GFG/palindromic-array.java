@@ -24,25 +24,27 @@ class PalindromicArray{
 /*Complete the Function below*/
 class GfG
 {
-	public static int palinArray(int[] a, int n)
-           {
-            //add code here.
-            for(int i=0;i<n;i++)
-            {
-              int num=a[i];
-              int m=num;
-              int sum=0;
-              while(m>0)
-              {
-                  int rem=m%10;
-                  sum=(sum*10)+rem;
-                  m=m/10;
-              }
-              if(sum!=num)
-              {
-                  return 0;
-              }
+	public static int palinArray(int[] arr, int n)
+    {
+     //add code here.
+     int ans=1;
+        for(int i=0;i<n;i++ ){
+            String a=arr[i]+"";
+            int l=a.length()-1;
+            int j=0;
+            while(j<l){
+                if(a.charAt(j)==a.charAt(l)){
+                    j++;
+                    l--;
+                }
+                else{
+                    ans=0;
+                    break;
+                }
             }
-            return 1;
-           }
+            
+        }
+        return ans;
+    
+    }
 }
