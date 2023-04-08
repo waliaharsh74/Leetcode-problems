@@ -48,7 +48,6 @@ class GfG {
 
 
 
-
 class MyStack
 {
     int top;
@@ -60,17 +59,11 @@ class MyStack
 	}
 	
 	//Function to push an integer into the stack.
-    void push(int a) 
+    void push(int a)
 	{
 	    // Your code here
-	    if(top==arr.length-1){
-	        
-	        System.out.println("Stack is full");
-	    }
-	    
 	    top++;
 	    arr[top]=a;
-	    
 	} 
 	
     //Function to remove an item from top of the stack.
