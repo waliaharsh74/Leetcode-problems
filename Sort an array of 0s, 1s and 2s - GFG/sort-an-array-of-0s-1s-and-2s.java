@@ -13,7 +13,33 @@ class Solution
     public static void sort012(int a[], int n)
     {
         // code here 
-        Arrays.sort(a);
+        int z=0;
+        int o=0;
+        int t=0;
+        for(int i=0;i<n;i++){
+            if(a[i]==0)z++;
+            else if(a[i]==1)o++;
+            else{
+                t++;
+            }
+        }
+      int i=0;
+      while(z>0){
+          a[i]=0;
+          i++;
+          z--;
+      }
+      while(o>0){
+          a[i]=1;
+          i++;
+          o--;
+      }
+      while(t>0){
+          a[i]=2;
+          i++;
+          t--;
+      }
+        
     }
 }
 
