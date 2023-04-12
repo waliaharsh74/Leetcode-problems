@@ -30,10 +30,13 @@ class GFG {
 class Solution {
     int MissingNumber(int a[], int n) {
         // Your Code Here
-        Arrays.sort(a);
-        for(int i=0;i<a.length;i++){
-            if(a[i]!=i+1) return i+1;
+        int ans=0;
+        for(int i=0;i<n-1;i++){
+            ans^=a[i];
         }
-        return n;
+        for(int i=1;i<=n;i++){
+            ans^=i;
+        }
+        return ans;
     }
 }
