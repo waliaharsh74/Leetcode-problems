@@ -1,6 +1,8 @@
 //{ Driver Code Starts
 import java.io.*;
 
+import java.util.*;
+
 class Main {
     
 	public static void main (String[] args) throws IOException {
@@ -34,21 +36,21 @@ class Solution{
     // arr: input array
     // n: size of array
     //Function to find the sum of contiguous subarray with maximum sum.
-    long maxSubarraySum(int a[], int n){
+    long maxSubarraySum(int arr[], int n){
+        int sum=0,
+        maxSum=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            if(sum<0){
+                sum=0;
+            }
+            sum+=arr[i];
+            maxSum=Math.max(sum,maxSum);
+            
+        }
         
         // Your code here
-        int size = a.length;
-        int max_so_far = Integer.MIN_VALUE, max_ending_here
-                                            = 0;
- 
-        for (int i = 0; i < size; i++) {
-            max_ending_here = max_ending_here + a[i];
-            if (max_so_far < max_ending_here)
-                max_so_far = max_ending_here;
-            if (max_ending_here < 0)
-                max_ending_here = 0;
-        }
-        return max_so_far;
+        // if(maxSum<0)return -1;
+        return maxSum;
         
     }
     
