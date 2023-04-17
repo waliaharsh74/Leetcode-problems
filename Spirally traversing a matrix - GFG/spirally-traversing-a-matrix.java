@@ -37,39 +37,37 @@ class Solution
     static ArrayList<Integer> spirallyTraverse(int mat[][], int r, int c)
     {
         // code here 
-          int R=mat.length;
-        int C=mat[0].length;
-        ArrayList<Integer> ans= new ArrayList<Integer>();
-    int top = 0, left = 0, bottom = R - 1, right = C - 1;
-
-    while (top <= bottom && left <= right) {
-      for (int i = left; i <= right; i++)
-        ans.add(mat[top][i]);
-
-      top++;
-
-      for (int i = top; i <= bottom; i++)
-        ans.add(mat[i][right]);
-        // System.out.print(mat[i][right] + " ");
-
-      right--;
-
-      if (top <= bottom) {
-        for (int i = right; i >= left; i--)
-            ans.add(mat[bottom][i]);
-          // System.out.print(mat[bottom][i] + " ");
-
-        bottom--;
-      }
-
-      if (left <= right) {
-        for (int i = bottom; i >= top; i--)
-        ans.add(mat[i][left]);
-          // System.out.print(mat[i][left] + " ");
-
-        left++;
-      }
-    }
-    return ans;
+        ArrayList<Integer> ans=new ArrayList<Integer>();
+        int top=0;
+        int left=0;
+        int bottom=r-1;
+        int right=c-1;
+        while(top<=bottom && left<=right){
+            for(int i=left; i<=right;i++){
+                ans.add(mat[top][i]);
+            }
+                top++;
+            for(int i=top; i<=bottom;i++){
+                ans.add(mat[i][right]);
+            }
+                right--;
+                
+            if (top <= bottom) {
+                for(int i=right; i>=left;i--){
+                    ans.add(mat[bottom][i]);
+                }
+                    bottom--;
+                
+            }   
+            
+            if(left<=right){
+                
+                for(int i=bottom; i>=top;i--){
+                    ans.add(mat[i][left]);
+                }
+                    left++;
+            }
+        }
+        return ans;
     }
 }
