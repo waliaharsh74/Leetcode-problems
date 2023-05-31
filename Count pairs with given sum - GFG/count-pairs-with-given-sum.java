@@ -32,7 +32,6 @@ public class GFG {
 
 class Solution {
     int getPairsCount(int[] arr, int n, int sum) {
-        // code here
         HashMap<Integer, Integer> hm = new HashMap<>();
  
         // Store counts of all elements in map hm
@@ -62,5 +61,8 @@ class Solution {
  
         // return the half of twice_count
         return twice_count / 2;
+ 
+       
+
     }
 }
