@@ -1,10 +1,10 @@
 # Subarray with given sum
 ## Easy
-<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an unsorted array <strong>A </strong>of size <strong>N</strong>&nbsp;that contains only&nbsp;non-negative integers, find a continuous sub-array which adds to a given number <strong>S&nbsp;</strong>and return the left and right index(<strong>1-based indexing</strong>) of that subarray.</span></p>
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an unsorted array <strong>A </strong>of size <strong>N</strong>&nbsp;that contains only&nbsp;positive integers, find a continuous sub-array that adds to a given number <strong>S&nbsp;</strong>and return the left and right index(<strong>1-based indexing</strong>) of that subarray.</span></p>
 
-<p><span style="font-size:18px">In case of multiple subarrays, return the subarray indexes which comes first on moving from left to right.</span></p>
+<p><span style="font-size:18px">In case of multiple subarrays, return the subarray indexes which come first on moving from left to right.</span></p>
 
-<p><span style="font-size:18px"><strong>Note</strong>:- Both the indexes&nbsp;in the array should be according to <strong>1-based indexing.</strong>&nbsp;You have to return an arraylist consisting of two elements left and right. In case no such subarray exists return an array consisting of element <strong>-1</strong>.</span></p>
+<p><span style="font-size:18px"><strong>Note</strong>:-&nbsp;You have to return an ArrayList consisting of two elements left and right. In case no such subarray exists return an array consisting of element <strong>-1</strong>.</span></p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
 
@@ -32,7 +32,7 @@ is 15.</span>
 <p>&nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Your Task:</strong><br>
-You don't need to read input or print anything. The task is to complete the function <strong>subarraySum</strong>() which takes arr, N, and S as input parameters and returns an <strong>arraylist&nbsp;</strong>containing the&nbsp;<strong>starting </strong>and <strong>ending </strong>positions&nbsp;of the&nbsp;first such occurring subarray from the left where sum equals to S. The two indexes in the array should be according to 1-based indexing. If no such subarray is found, return an array consisting of only one element that is -1.</span></p>
+You don't need to read input or print anything. The task is to complete the function <strong>subarraySum</strong>() which takes arr, N, and S as input parameters and returns an <strong>ArrayList&nbsp;</strong>containing the&nbsp;<strong>starting </strong>and <strong>ending </strong>positions&nbsp;of the&nbsp;first such occurring subarray from the left where sum equals to S. The <strong>two indexes in the array</strong> should be according to <strong>1-based indexing</strong>. If no such subarray is found, return an array consisting of only one element that is -1.</span></p>
 
 <p>&nbsp;</p>
 
@@ -43,7 +43,6 @@ You don't need to read input or print anything. The task is to complete the func
 
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 &lt;= N &lt;= 10<sup>5</sup></span><br>
-<span style="font-size:18px">1 &lt;= A</span><sub>i</sub><span style="font-size:18px"> &lt;= 10<sup>9</sup></span></p>
-
-<p>&nbsp;</p>
+<span style="font-size:18px">1 &lt;= A</span><sub>i</sub><span style="font-size:18px"> &lt;= 10<sup>9</sup></span><br>
+<span style="font-size:18px">0&lt;= S</span><span style="font-size:18px">&nbsp;&lt;= 10<sup>14</sup></span></p>
 </div>
