@@ -39,39 +39,40 @@ class Main{
 class Solution
 {
     //Function to find a continuous sub-array which adds up to a given number.
-    static ArrayList<Integer> subarraySum(int[] arr, int n, int sum) 
+    static ArrayList<Integer> subarraySum(int[] arr, int n, int s) 
     {
-        // Your code herer()
-        ArrayList<Integer>ans=new ArrayList<Integer>();
-        int currentSum = arr[0], start = 0, i;
- 
-        // Pick a starting point
-        for (i = 1; i <= n; i++) {
-            // If currentSum exceeds the sum,
-            // then remove the starting elements
-            while (currentSum > sum && start < i - 1) {
-                currentSum = currentSum - arr[start];
-                start++;
+        // Your code here
+       ArrayList<Integer> ans = new ArrayList<>();
+        int left = 0;
+        int right = 0;
+        int sum = 0;
+
+        while (right < n) {
+            sum += arr[right];
+
+            while (sum > s &&left < right) {
+                sum -= arr[left];
+                left++;
             }
- 
-            // If currentSum becomes equal to sum,
-            // then return true
-            if (currentSum == sum) {
-                // int p = i - 1;
-                ans.add(start+1);
-                ans.add(i);
+
+            if (sum == s) {
+                ans.add(left + 1);
+                ans.add(right + 1);
                 return ans;
-                
-                // System.out.println(
-                //     "Sum found between indexes " + start
-                //     + " and " + p);
-                // // return 1;
             }
- 
-            // Add this element to curr_sum
-            if (i < n)
-                currentSum = currentSum + arr[i];
+
+            right++;
         }
+        if (s == 0) {
+            for (int i = 0; i < n; i++) {
+                if (arr[i] == 0) {
+                    ans.add(i + 1);
+                    ans.add(i + 1);
+                    return ans;
+                }
+            }
+        }
+
         ans.add(-1);
         return ans;
     }
