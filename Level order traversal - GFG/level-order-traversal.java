@@ -129,38 +129,41 @@ class Solution
     //Function to return the level order traversal of a tree.
     static ArrayList <Integer> levelOrder(Node root) 
     {
-        ArrayDeque<Node> q=new ArrayDeque<>();
-        ArrayList <Integer> ans=new ArrayList<Integer>();
-        if(root==null) return ans;
+        // Your code here
+        ArrayList<Integer> ans=new ArrayList<>();
+        if(root==null)return ans;
         
+        
+        Queue<Node> q=new LinkedList<>();
         q.add(root);
-        // q.add(null);
+        q.add(null);
         while(!q.isEmpty()){
             Node curr=q.poll();
-            // if(curr==null){
-            //     if(q.isEmpty()){
-            //         return ans;
-            //     }
-            //     else{
-                    
-            //         q.add(null);
-            //     }
-            // }
-            // else
-            {
-            ans.add(curr.data);
-            if(curr.left!=null)
-                q.add(curr.left);
-            
-            
-            if(curr.right!=null)
-                q.add(curr.right);
-            
+            if(curr==null){
+                // ans.add(currList);
+                if(q.isEmpty()) return ans;
+                q.offer(null);
+                // currList=new ArrayList<>();
             }
+            else{
+                ans.add(curr.data);
+                if(curr.left!=null){
+                    q.add(curr.left);
+                }
+                if(curr.right!=null){
+                    q.add(curr.right);
+                }
+            }
+            // list.add(currList);
+           
+                
+                
+            
+           
+            
         }
         
-        // Your code here
-        return ans;
+    return ans;    
     }
 }
 
