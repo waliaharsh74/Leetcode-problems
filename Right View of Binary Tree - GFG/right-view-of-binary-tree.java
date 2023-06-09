@@ -130,18 +130,18 @@ class Node
 
 class Solution{
     //Function to return list containing elements of right view of binary tree.
-    ArrayList<Integer> rightView(Node root) {
-        
+    ArrayList<Integer> rightView(Node node) {
         //add code here.
-        ArrayList<Integer> ans=new ArrayList<Integer>();
-        rightView(root,0,ans);
+        ArrayList<Integer>ans=new ArrayList<Integer>();
+        rightViewUtil(node,ans,0);
         return ans;
     }
-    void rightView(Node root,int lvl,ArrayList<Integer> ans){
+    void rightViewUtil(Node root,ArrayList<Integer>ans,int lvl){
         if(root==null)return;
         if(ans.size()==lvl)ans.add(root.data);
-        rightView(root.right,lvl+1,ans);
-        rightView(root.left,lvl+1,ans);
+        rightViewUtil(root.right,ans,lvl+1);
+        rightViewUtil(root.left,ans,lvl+1);
+        
     }
 }
 
