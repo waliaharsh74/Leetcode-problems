@@ -40,5 +40,5 @@
 
 <p><span style="font-size:18px"><strong>Constraints:</strong></span><br>
 <span style="font-size:18px">1 ≤ Number of nodes ≤ 10<sup>5</sup></span><br>
-<span style="font-size:18px">1 ≤ Data of a node ≤ 10<sup>5</sup></span></p>
+<span style="font-size:18px">0 ≤ Data of a node ≤ 10<sup>5</sup></span></p>
 </div>
