@@ -123,19 +123,20 @@ class Tree
      {
           // Your code here
           ArrayList<Integer> ans=new ArrayList<Integer>();
-          printNodesAtKDistance(root,k,ans);
+          int lvl=0;
+          printNodesAtKDistance(root,k,ans,lvl);
           return ans;
          
      }
      
-     void printNodesAtKDistance(Node root, int k,ArrayList<Integer> ans) {
+     void printNodesAtKDistance(Node root, int k,ArrayList<Integer> ans,int lvl) {
 		if(root == null) return;
-		if(k == 0) {
+		if(lvl == k) {
 			ans.add(root.data);
 			return;
 		}
 		
-		printNodesAtKDistance(root.left, k-1,ans);
-		printNodesAtKDistance(root.right, k-1,ans);
+		printNodesAtKDistance(root.left, k,ans,lvl+1);
+		printNodesAtKDistance(root.right, k,ans,lvl+1);
 	}
 }
