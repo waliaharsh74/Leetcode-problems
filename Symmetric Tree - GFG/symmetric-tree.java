@@ -135,13 +135,14 @@ class GfG
     {
         // add your code here;
         if(root==null)return true;
-        Node p=root.left;
-        Node q=root.right;
-        return isIdentical(p,q);
+        return isIdentical(root.left,root.right);
+        
+        
+        
     }
     
     static boolean isIdentical(Node root1, Node root2)
-	{
+	{https://practice.geeksforgeeks.org/courses
 	    // Code Here
 	   // if((root1!=null &&root2==null) || (root1==null &&root2!=null) ) return false;
 	   
