@@ -39,10 +39,11 @@ class Solution {
     public ArrayList<Integer> dfsOfGraph(int v, ArrayList<ArrayList<Integer>> adj) {
         // Code here
         ArrayList<Integer> ans=new ArrayList<Integer>();
+        ArrayDeque<Integer>st=new ArrayDeque<>();
         boolean vis[]=new boolean[v];
         int src=0;
         // ans.add(src?
-        dfs(adj,src,vis,ans);
+        dfs(adj,src,vis,ans,st);
         // System.out.println(adj.get(0).get(0));
         // for(Integer:neighbor:a.get(src)){
         //     if(!vis[neighbor]){
@@ -52,15 +53,21 @@ class Solution {
         return ans;
         
     }
-    public void dfs(ArrayList<ArrayList<Integer>> adj,int src,boolean vis[],ArrayList<Integer> ans){
+    public void dfs(ArrayList<ArrayList<Integer>> adj,int src,boolean vis[],ArrayList<Integer> ans,ArrayDeque<Integer>st){
         // int src=0;
-        ans.add(src);
+        st.push(src);
         vis[src]=true;
-        // System.out.println(adj.get(0).get(0));
-        for(Integer neighbor:adj.get(src)){
-            if(!vis[neighbor]){
-                 dfs(adj,neighbor,vis,ans);
+        while(!st.isEmpty()){
+            int cur=st.pop();
+            ans.add(cur);
+            for(Integer neighbor:adj.get(cur)){
+            
+                if(!vis[neighbor]){
+                 dfs(adj,neighbor,vis,ans,st);
+                }
             }
         }
+        // System.out.println(adj.get(0).get(0));
+        
     }
 }
