@@ -55,22 +55,22 @@ class Solution {
     void bfs(char[][] grid,int row,int col,boolean vis[][]){
         int n=grid.length;
         int m=grid[0].length;
-        vis[row][col]=true;
-        Queue<Pair>q=new ArrayDeque<>();
+        ArrayDeque<Pair> q=new ArrayDeque<>();
         q.add(new Pair(row,col));
+        vis[row][col]=true;
         while(!q.isEmpty()){
-            int cr=q.peek().r;
-            int cc=q.peek().c;
-            q.remove();
-            for(int delrow=-1;delrow<=1;delrow++){
-                for(int delcol =-1;delcol<=1;delcol++)
-                {
-                    int nrow=cr+delrow;
-                    int ncol=cc+delcol;
-                    if(nrow>=0 && nrow<n && ncol<m && ncol>=0 &&
-                    grid[nrow][ncol]=='1' && !vis[nrow][ncol]){
+            Pair cur=q.poll();
+            int r=cur.r;
+            int c=cur.c;
+            for(int dr=-1;dr<=1;dr++){
+                for(int dc=-1;dc<=1;dc++){
+                    int nrow=r+dr;
+                    int ncol=c+dc;
+                    
+                    if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]=='1'&& !vis[nrow][ncol]){
                         q.add(new Pair(nrow,ncol));
                         vis[nrow][ncol]=true;
+                        
                     }
                 }
             }
