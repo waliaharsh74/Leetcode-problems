@@ -41,20 +41,49 @@ class Solution
 {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor)
     {
-        // Code here 
-        int color=image[sr][sc];
-        if(color!=newColor)dfs(image,sr,sc,newColor,color);
+        // Code here
+        int n=image.length;
+        int m=image[0].length;
+        boolean vis[][]=new boolean[n][m];
+        bfs(image,sr,sc,newColor,vis);
         return image;
-        
     }
-    void dfs(int[][] image, int sr, int sc, int newColor,int color){
-        if(image[sr][sc]==color){
-            image[sr][sc]=newColor;
+    
+    void bfs(int[][] image, int sr, int sc, int newColor,boolean vis[][]){
+        int n=image.length;
+        int m=image[0].length;
+        int color=image[sr][sc];
+        ArrayDeque<Pair> q=new ArrayDeque<>();
+        q.add(new Pair(sr,sc));
+        vis[sr][sc]=true;
+        image[sr][sc]=newColor;
+        while(!q.isEmpty()){
+            Pair cur=q.poll();
+            int r=cur.r;
+            int c=cur.c;
+            int delrow [] ={-1,0,1,0};
+            int delcol [] ={0,1,0,-1};
+            for(int i=0;i<4;i++){
+                int nrow=r+delrow[i];
+                int ncol=c+delcol[i];
+
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && 
+                !vis[nrow][ncol] && image[nrow][ncol]==color ){
+                    image[nrow][ncol]=newColor;
+                    q.add(new Pair(nrow,ncol));
+                    vis[nrow][ncol]=true;
+                }
+            }
             
-            if(sr>=1)dfs(image,sr-1,sc,newColor,color);
-            if(sc>=1)dfs(image,sr,sc-1,newColor,color);
-            if(sr+1<image.length)dfs(image,sr+1,sc,newColor,color);
-            if(sc+1<image[0].length)dfs(image,sr,sc+1,newColor,color);
         }
+
     }
 }
+
+class Pair{
+    int r, c;
+    Pair(int r,int c){
+        this.r=r;
+        this.c=c;
+    }
+}  
