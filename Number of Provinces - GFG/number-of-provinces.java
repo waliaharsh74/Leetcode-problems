@@ -35,12 +35,12 @@ class GFG {
 class Solution {
     
     public  void dfs(int node, 
-       ArrayList<ArrayList<Integer>> adjLs , 
+       ArrayList<ArrayList<Integer>> adj , 
        int vis[]) {
         vis[node] = 1; 
-        for(Integer it: adjLs.get(node)) {
-            if(vis[it] == 0) {
-                dfs(it, adjLs, vis); 
+        for(int i=0;i<adj.size();i++) {
+            if(adj.get(node).get(i)==1 && vis[i] == 0) {
+                dfs(i, adj, vis); 
             }
         }
     }
@@ -66,7 +66,7 @@ class Solution {
         for(int i = 0;i<V;i++) {
             if(vis[i] == 0) {
                cnt++;
-               dfs(i, adjLs, vis); 
+               dfs(i, adj, vis); 
             }
         }
         return cnt; 
