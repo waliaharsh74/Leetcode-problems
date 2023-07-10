@@ -40,64 +40,62 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    static char[][] fill(int n, int m, char mat[][])
+    static char[][] fill(int n, int m, char a[][])
     {
         // code here
         // int n=a.length;
         // int m=a[0].length;
-      
-        int[][] vis=new int[n][m];
-        for(int j = 0 ; j<m;j++) {
-            // check for unvisited Os in the boundary rws
-            // first row 
-            if(vis[0][j] == 0 && mat[0][j] == 'O') {
-                dfs(0, j, vis, mat, n, m); 
+        char ans[][]=new char [n][m];
+        boolean vis[][]=new boolean[n][m];
+        // ArrayDeque<Pair> q=new ArrayDeque<>();
+        
+        for(int i=0;i<n;i++){
+            if(a[i][0]=='O' && !vis[i][0]){
+                dfs(i,0,a,ans,vis);
+            }
+            if(a[i][m-1]=='O' && !vis[i][m-1]){
+                dfs(i,m-1,a,ans,vis);
             }
             
-            // last row 
-            if(vis[n-1][j] == 0 && mat[n-1][j] == 'O') {
-                dfs(n-1,j,vis,mat, n, m); 
-            }
         }
-        
-        for(int i = 0;i<n;i++) {
-            // check for unvisited Os in the boundary columns
-            // first column 
-            if(vis[i][0] == 0 && mat[i][0] == 'O') {
-                dfs(i, 0, vis, mat, n, m); 
+        for(int i=0;i<m;i++){
+            if(a[0][i]=='O' && !vis[0][i]){
+                dfs(0,i,a,ans,vis);
+            }
+            if(a[n-1][i]=='O'&& !vis[n-1][i]){
+                dfs(n-1,i,a,ans,vis);
             }
             
-            // last column
-            if(vis[i][m-1] == 0 && mat[i][m-1] == 'O') {
-                dfs(i, m-1, vis, mat, n, m); 
+        }
+        
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(!vis[i][j] && a[i][j]=='O'){
+                    a[i][j]='X';
+                }
+                
             }
         }
         
-        // if unvisited O then convert to X
-        for(int i = 0;i<n;i++) {
-            for(int j= 0 ;j<m;j++) {
-                if(vis[i][j] == 0 && mat[i][j] == 'O') 
-                    mat[i][j] = 'X'; 
-            }
-        }
-        
-        return mat;
+        return a;
         
     }
     
-    static void dfs(int row, int col, int[][] vis,char a[][],int n, int m){
-        vis[row][col]=1;
-        int drow[] ={-1,0,1,0};
-        int dcol[] ={0,1,0,-1};
-        for(int i=0;i<4;i++){
-            int nrow=row+drow[i];
-            int ncol=col+dcol[i];
-            if(nrow>=0 && ncol>=0 && nrow<n&& ncol<m &&
-            a[nrow][ncol]=='O' &&vis[nrow][ncol]==0)
-            {
-             dfs(nrow,ncol,vis,a,n,m);   
-            }
+    static void  dfs(int r, int c, char a[][],char ans[][],boolean vis[][]){
+        int n=a.length;
+        vis[r][c]=true;
+        int m=a[0].length;
+        int delRow[]={-1,0,1,0};
+        int delCol[]={0,1,0,-1};
             
+        for(int i=0;i<4;i++){
+            int nrow=r+delRow[i];
+            int ncol=c+delCol[i];
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && a[nrow][ncol]=='O' && !vis[nrow][ncol]){
+                dfs(nrow,ncol,a,ans,vis);
+                
+            }
         }
-    }        
+    }           
 }
