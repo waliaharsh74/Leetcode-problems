@@ -42,48 +42,51 @@ class Solution
         // Code here
         int n=grid.length;
         int m=grid[0].length;
-        int tm=0;
-        int vis[][]=new int [n][m];
-        Queue<Pair>q=new ArrayDeque<>();
+        int ans[][]=new int [n][m];
+        boolean vis[][]=new boolean[n][m];
+        ArrayDeque<Pair> q=new ArrayDeque<>();
+        
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==1){
                     q.add(new Pair(i,j,0));
-                    vis[i][j]=0;
+                    vis[i][j]=true;
                 }
             }
         }
         
-        int drow[]={-1,0,1,0};
-        int dcol[]={0,1,0,-1};
         
         while(!q.isEmpty()){
-            int r=q.peek().r;
-            int c=q.peek().c;
-            int t=q.peek().t;
-            tm=Math.max(tm,t);
-            q.remove();
+            Pair cur=q.poll();
+            int r=cur.r;
+            int c=cur.c;
+            int s=cur.s;
+            ans[r][c]=s;
+            
+            int delRow[]={-1,0,1,0};
+            int delCol[]={0,1,0,-1};
+            
             for(int i=0;i<4;i++){
-                int nrow=r+drow[i];
-                int ncol=c+dcol[i];
-                if(nrow>=0 && ncol>=0 &&nrow<n &&ncol<m &&
-                grid[nrow][ncol]==0 &&vis[nrow][ncol]==0){
-                    vis[nrow][ncol]=t+1;
-                    q.add(new Pair(nrow,ncol,t+1));
+                int nrow=r+delRow[i];
+                int ncol=c+delCol[i];
+                
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]==0 && !vis[nrow][ncol]){
+                    q.add(new Pair(nrow,ncol,s+1));
+                    vis[nrow][ncol]=true;
                 }
+                
             }
-            
-            
-        }
-        return vis;
+        } 
+        return ans;
     }
 }
 class Pair{
-    int r,c,t;
-    Pair(int r,int c,int t){
+    int r;
+    int c;
+    int s;
+    Pair(int r,int c,int s){
         this.r=r;
         this.c=c;
-        this.t=t;
+        this.s=s;
     }
-    
 }
