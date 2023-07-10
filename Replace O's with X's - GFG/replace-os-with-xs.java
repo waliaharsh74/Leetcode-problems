@@ -40,9 +40,12 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    static char[][] fill(int n, int m,char mat [][])
+    static char[][] fill(int n, int m, char mat[][])
     {
         // code here
+        // int n=a.length;
+        // int m=a[0].length;
+      
         int[][] vis=new int[n][m];
         for(int j = 0 ; j<m;j++) {
             // check for unvisited Os in the boundary rws
@@ -78,10 +81,10 @@ class Solution{
             }
         }
         
-        return mat;     
-        
+        return mat;
         
     }
+    
     static void dfs(int row, int col, int[][] vis,char a[][],int n, int m){
         vis[row][col]=1;
         int drow[] ={-1,0,1,0};
@@ -96,7 +99,5 @@ class Solution{
             }
             
         }
-        
-        
-    }
+    }        
 }
