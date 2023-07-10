@@ -34,40 +34,32 @@ class GFG {
 
 class Solution {
     // Function to detect cycle in an undirected graph.
-    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
-        if(V==0)return false;
+    public boolean isCycle(int v, ArrayList<ArrayList<Integer>> adj) {
         // Code here
-        boolean vis[]=new boolean[V];
-        for (int i = 0; i < V; i++)
-            vis[i] = false;
-        for (int u = 0; u < V; u++) {
- 
-            // Don't recur for u if already visited
-            if (!vis[u])
-                if (isCyclePresent(u,adj, vis, -1))
-                    return true;
-        }
- 
-        return false;
-        
-        
+        int src=0;
+        boolean vis[]=new boolean[v];
+        // vis[src]=true;
+        for(int i = 0; i<v; i++) {
+			if(!vis[i]) {
+				if(isCyclePresent(i, vis, -1,adj)) {
+					return true;
+				
+				}
+			}
+		}
+		return false;
     }
-    boolean isCyclePresent(int src,ArrayList<ArrayList<Integer>> adj,boolean vis[],int parent){
-        vis[src]=true;
-        for(Integer neighbor:adj.get(src)){
-            if(!vis[neighbor]){
-                if(isCyclePresent(neighbor,adj,vis,src)){ 
-                    
-                    return true;
-                }    
-                
-            }
-            else if(neighbor!=parent){
-                return true;
-            }
-        }
-        return false;
-        
-    }
-    
+     boolean isCyclePresent(int src, boolean vis[], int parent,ArrayList<ArrayList<Integer>> a) {
+		vis[src] = true;
+		
+		for(Integer neighbor: a.get(src)) {
+			if(!vis[neighbor]) {				
+				if(isCyclePresent(neighbor, vis, src,a)) return true;
+			} else if(neighbor != parent){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
