@@ -38,69 +38,61 @@ class GFG {
 
 class Solution {
 
-    int numberOfEnclaves(int[][] mat) {
-        
+    int numberOfEnclaves(int[][] a) {
 
         // Your code here
-        int n=mat.length;
-        int m=mat[0].length;
-        int ans=0;
-        int[][] vis=new int[n][m];
-        for(int j = 0 ; j<m;j++) {
-            // check for unvisited Os in the boundary rws
-            // first row 
-            if(vis[0][j] == 0 && mat[0][j] == 1) {
-                dfs(0, j, vis, mat, n, m); 
-            }
-            
-            // last row 
-            if(vis[n-1][j] == 0 && mat[n-1][j] == 1) {
-                dfs(n-1,j,vis,mat, n, m); 
-            }
-        }
+        int n=a.length;
+        int m=a[0].length;
+        boolean vis[][]=new boolean[n][m];
+        // ArrayDeque<Pair> q=new ArrayDeque<>();
+        int cnt=0;
         
-        for(int i = 0;i<n;i++) {
-            // check for unvisited Os in the boundary columns
-            // first column 
-            if(vis[i][0] == 0 && mat[i][0] == 1) {
-                dfs(i, 0, vis, mat, n, m); 
+        for(int i=0;i<n;i++){
+            if(a[i][0]==1 && !vis[i][0]){
+                dfs(i,0,a,vis);
+            }
+            if(a[i][m-1]==1 && !vis[i][m-1]){
+                dfs(i,m-1,a,vis);
             }
             
-            // last column
-            if(vis[i][m-1] == 0 && mat[i][m-1] == 1) {
-                dfs(i, m-1, vis, mat, n, m); 
+        }
+        for(int i=0;i<m;i++){
+            if(a[0][i]==1 && !vis[0][i]){
+                dfs(0,i,a,vis);
             }
+            if(a[n-1][i]==1 && !vis[n-1][i]){
+                dfs(n-1,i,a,vis);
+            }
+            
         }
         
         
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(mat[i][j]==1 && vis[i][j]==0){
-                    // System.out.print(vis[i][j]+" ");
-                    ans++;
+                if(!vis[i][j] && a[i][j]==1){
+                    cnt++;
                 }
+                
             }
-            // System.out.println();
         }
-        return ans;
         
-        
+        return cnt;
     }
-    void dfs(int row, int col, int[][] vis,int a[][],int n, int m){
-        vis[row][col]=1;
-        int drow[] ={-1,0,1,0};
-        int dcol[] ={0,1,0,-1};
-        for(int i=0;i<4;i++){
-            int nrow=row+drow[i];
-            int ncol=col+dcol[i];
-            if(nrow>=0 && ncol>=0 && nrow<n&& ncol<m &&
-            a[nrow][ncol]==1 &&vis[nrow][ncol]==0)
-            {
-             dfs(nrow,ncol,vis,a,n,m);   
-            }
+    
+    void  dfs(int r, int c, int a[][],boolean vis[][]){
+        int n=a.length;
+        vis[r][c]=true;
+        int m=a[0].length;
+        int delRow[]={-1,0,1,0};
+        int delCol[]={0,1,0,-1};
             
+        for(int i=0;i<4;i++){
+            int nrow=r+delRow[i];
+            int ncol=c+delCol[i];
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && a[nrow][ncol]== 1 && !vis[nrow][ncol]){
+                dfs(nrow,ncol,a,vis);
+                
+            }
         }
-        
-        
-    }
+    }       
 }
