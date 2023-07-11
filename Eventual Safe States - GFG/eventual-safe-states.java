@@ -43,47 +43,41 @@ class GFG {
 
 class Solution {
 
-    List<Integer> eventualSafeNodes(int v, List<List<Integer>> adj) {
+    List<Integer> eventualSafeNodes(int V, List<List<Integer>> adj) {
 
         // Your code here
-        boolean vis[]=new boolean[v];
-        boolean pathvis[]=new boolean[v];
-        boolean safe[]=new boolean[v];
-        List<Integer> ans= new ArrayList<Integer>(); 
-        
-        for(int i=0;i<v;i++){
+        List<Integer> ans=new ArrayList<>();
+        boolean vis[]=new boolean[V];
+        boolean pathVis[]=new boolean[V];
+        int check[]=new int[V];
+        for(int i=0;i<V;i++)
+        {
             if(!vis[i]){
-                dfs(i,adj,vis,pathvis,safe);
+                dfs(i,adj,vis,pathVis,check);
             }
         }
         
-        for(int i=0;i<v;i++){
-            if(safe[i]){
+        for(int i=0;i<V;i++)
+        {
+            if(check[i]==1){
                 ans.add(i);
             }
         }
         return ans;
-    }
-    
-    boolean dfs(int src,List<List<Integer>> adj,boolean vis[],boolean pathvis[],boolean safe[]){
-        vis[src]=true;
-        pathvis[src]=true;
-        safe[src]=false;
         
+    }
+    boolean dfs(int src,List<List<Integer>> adj,boolean vis[],boolean pathVis[],int check[]){
+        vis[src]=true;
+        pathVis[src]=true;
+        check[src]=0;
         for(Integer neighbor:adj.get(src)){
             if(!vis[neighbor]){
-                if(dfs(neighbor,adj,vis,pathvis,safe)==true)return true;
-                
-                
+                if(dfs(neighbor,adj,vis,pathVis,check)) return true;
             }
-            else if(pathvis[neighbor]){
-                    return true;
-            }
+            else if(pathVis[neighbor]) return true;
         }
-        pathvis[src]=false;
-        safe[src]=true;
+        pathVis[src]=false;
+        check[src]=1;
         return false;
-        
     }
-    
 }
