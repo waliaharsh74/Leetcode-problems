@@ -15,7 +15,7 @@ class Main {
             int edg = Integer.parseInt(st[0]);
             int nov = Integer.parseInt(st[1]);
 
-            for (int i = 0; i < nov + 1; i++)
+            for (int i = 0; i < nov; i++)
                 list.add(i, new ArrayList<Integer>());
 
             int p = 0;
@@ -61,66 +61,35 @@ class Main {
 class Solution
 {
     //Function to return list containing vertices in Topological order. 
-    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+    static int[] topoSort(int v, ArrayList<ArrayList<Integer>> adj) 
     {
-        // add your code here
-        int[] ans=new int[V];
-        boolean[] vis=new boolean[V];
-        int [] inDeg=new int[V];
-        Queue<Integer>q=new ArrayDeque<>();
-        for(ArrayList<Integer> list:adj){
-            for(Integer e:list){
-                inDeg[e]++;
-            }
-        }
-        bfs(V,adj,q,vis,inDeg,ans);
         
-        // for(int i=0;i<V;i++){
-        //     if(!vis[i]){
-        //         dfs(i,adj,s,vis);
-        //     }
-        // }
-        // int i=0;
-        // while(!s.isEmpty()){
-        //     ans[i++]=s.pop();
-            
-        // }
+        // add your code here
+        int[] ans=new int[v];
+        boolean[] vis=new boolean[v];
+        ArrayDeque<Integer> st=new ArrayDeque<>();
+        for(int i=0;i<v;i++){
+            if(!vis[i])
+                dfs(i,adj,vis,st);
+        }
+        int cnt=0;
+        while(!st.isEmpty()){
+            ans[cnt++]=st.pop();
+        }
         return ans;
         
         
-    }
-    static void bfs(int V, ArrayList<ArrayList<Integer>> adj,Queue<Integer> q,boolean[] vis,int inDeg[],int ans[])
-    {
-        for(int i=0;i<V;i++){
-            if(inDeg[i]==0){
-                q.add(i);
-            }
-        }
-        int i=0;
         
-        while(!q.isEmpty()){
-            int curr=q.poll();
-            ans[i]=curr;
-            i++;
+    }
+    static void dfs(int src,ArrayList<ArrayList<Integer>> adj,boolean [] vis, ArrayDeque<Integer> st){
+        vis[src]=true;
+        
+        for(Integer neighbor:adj.get(src)){
+            if(!vis[neighbor]){
+                dfs(neighbor,adj,vis,st);
+            }
             
-            for(Integer neighbor:adj.get(curr)){
-                if(--inDeg[neighbor]==0){
-                    q.add(neighbor);
-                }
-            }
         }
-        
+        st.push(src);
     }
-    
-    
-    
-    // static void dfs(int v, ArrayList<ArrayList<Integer>> adj,Stack<Integer>s,boolean[] vis){
-    //     vis[v]=true;
-    //     for(Integer neighbor:adj.get(v)){
-    //         if(!vis[neighbor]){
-    //             dfs(neighbor,adj,s,vis);
-    //         }
-    //     }
-    //     s.push(v);
-    // }
 }
