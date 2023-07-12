@@ -22,7 +22,7 @@ class GFG {
 		        }
 		    }
 			Solution ob = new Solution();
-			if(ob.isPossible(N,prerequisites))
+			if(ob.isPossible(N,P,prerequisites))
 			{
 			    System.out.println("Yes");
 			}
@@ -41,47 +41,48 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    public boolean isPossible(int V, int[][] prerequisites)
+    public boolean isPossible(int v,int p, int[][] arr)
     {
         // Your Code goes here
         ArrayList<ArrayList<Integer>>adj=new ArrayList<ArrayList<Integer>>();
-        for(int i=0;i<V;i++){
+
+        for(int i=0;i<v;i++){
             adj.add(new ArrayList<Integer>());
         }
-        int m=prerequisites.length;
-        for(int i=0;i<m;i++){
-            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+
+        for(int i=0;i<arr.length;i++){
+            adj.get(arr[i][0]).add(arr[i][1]);
         }
-        int InDeg[]=new int[V];
-        
-        for(int i=0;i<V;i++){
+
+        int indeg[]=new int[v];
+        for(int i=0;i<v;i++){
             for(Integer neighbor:adj.get(i)){
-                InDeg[neighbor]++;
+                indeg[neighbor]++;
             }
         }
-        
-        List<Integer>list =new ArrayList<>();
-        Queue<Integer> q =new ArrayDeque<>();
-        for(int i=0;i<V;i++){
-            if(InDeg[i]==0){
+
+        ArrayDeque<Integer>q=new ArrayDeque<>();
+
+        for(int i=0;i<v;i++){
+            if(indeg[i]==0)
                 q.add(i);
-                // list.add()
-            }
         }
+        int cnt=0;
+
         while(!q.isEmpty()){
             int cur=q.poll();
-            list.add(cur);
+            cnt++;
             for(Integer neighbor:adj.get(cur)){
-                InDeg[neighbor]--;
-                if(InDeg[neighbor]==0){
+                indeg[neighbor]--;
+                if(indeg[neighbor]==0){
                     q.add(neighbor);
+                    
                 }
             }
         }
-        // System.out.println(list.size());
-        if(list.size()==V)return true;
+        // System.out.println(cnt);
+        if(cnt==v)return true;
         return false;
-        
     }
     
 }
