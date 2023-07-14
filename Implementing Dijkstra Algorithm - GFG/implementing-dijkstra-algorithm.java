@@ -85,17 +85,28 @@ class Solution
             
             // Check for all adjacent nodes of the popped out
             // element whether the prev dist is larger than current or not.
-            for(int i = 0;i<adj.get(node).size();i++) {
-                int edgeWeight = adj.get(node).get(i).get(1); 
-                int adjNode = adj.get(node).get(i).get(0); 
+            // for(int i = 0;i<adj.get(node).size();i++) {
+            //     int edgeWeight = adj.get(node).get(i).get(1); 
+            //     int adjNode = adj.get(node).get(i).get(0); 
                 
-                // If current distance is smaller,
-                // push it into the queue.
+            //     // If current distance is smaller,
+            //     // push it into the queue.
+            //     if(dis + edgeWeight < dist[adjNode]) {
+            //         dist[adjNode] = dis + edgeWeight; 
+            //         pq.add(new Pair(dist[adjNode], adjNode)); 
+            //     }
+            // }
+            
+            
+            for( ArrayList<Integer> neighbor:adj.get(node)){
+                int edgeWeight=neighbor.get(1);
+                int adjNode =neighbor.get(0);
                 if(dis + edgeWeight < dist[adjNode]) {
                     dist[adjNode] = dis + edgeWeight; 
                     pq.add(new Pair(dist[adjNode], adjNode)); 
                 }
             }
+            
         }
         // Return the list containing shortest distances
         // from source to all the nodes.
