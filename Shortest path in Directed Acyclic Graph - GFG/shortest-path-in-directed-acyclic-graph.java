@@ -31,52 +31,71 @@ class Main {
 //User function Template for Java
 class Solution {
 
-	public int[] shortestPath(int N,int m, int[][] edges) {
+	public int[] shortestPath(int v,int n, int[][] edges) {
 		//Code here
-	  List<List<int[]>> graph = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            graph.add(new ArrayList<>());
-        }
-        for (int[] edge : edges) {
-            graph.get(edge[0]).add(new int[]{edge[1], edge[2]});
-        }
-
-        // Initialize distance array and priority queue
-        int[] dist = new int[N];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[0] = 0;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
-        pq.offer(new int[]{0, 0});
-
-        // Dijkstra's algorithm
-        while (!pq.isEmpty()) {
-            int[] curr = pq.poll();
-            int u = curr[0];
-            int d = curr[1];
-            if (d > dist[u]) continue;
-            for (int[] neighbor : graph.get(u)) {
-                int v = neighbor[0];
-                int w = neighbor[1];
-                if (dist[u] + w < dist[v]) {
-                    dist[v] = dist[u] + w;
-                    pq.offer(new int[]{v, dist[v]});
-                }
+	  int vis[]=new int[v];
+	  ArrayList<ArrayList<Pair>> adj= new ArrayList<ArrayList<Pair>>();
+	  
+	  for(int i=0;i<v;i++){
+	      adj.add(new ArrayList<Pair>());
+	  }
+	  
+	  for(int i=0;i<n;i++){
+	      int u=edges[i][0];
+	      int vi=edges[i][1];
+	      int wt=edges[i][2];
+	      adj.get(u).add(new Pair(vi,wt));
+	      
+	      
+	      
+	  }
+	  
+	  ArrayDeque<Integer> st=new ArrayDeque<>();
+	  
+	  for(int i=0;i<v;i++){
+	      if(vis[i]!=1)
+	      {
+	          topo(i,adj,vis,st);
+	      }
+	      
+	  }
+	  
+	  int dis[]=new int[v];
+	  int ans[]=new int[v];
+	  Arrays.fill(dis,(int)(1e6));
+	  dis[0]=0;
+	  
+	  while(!st.isEmpty()){
+	      int cur=st.pop();
+	      for(Pair neighbor:adj.get(cur)){
+	          if(dis[cur]+neighbor.wt<dis[neighbor.v]){
+	              dis[neighbor.v]=dis[cur]+neighbor.wt;
+	          }
+	      }
+	  }
+	  
+	  for(int i=0;i<v;i++){
+	      if(dis[i]==(int)(1e6)){
+	          dis[i]=-1;
+	      }
+	  }
+	  return dis;
+	  
+	  
+	  
+	  
+	  
+    }
+    
+    void topo(int src,ArrayList<ArrayList<Pair>> adj,int vis[],ArrayDeque<Integer> st){
+        vis[src]=1;
+        for(Pair neighbor:adj.get(src)){
+            if(vis[neighbor.v]!=1){
+                topo(neighbor.v,adj,vis,st);
             }
         }
-
-        // Replace unreachable vertices with -1
-        for (int i = 0; i < N; i++) {
-            if (dist[i] == Integer.MAX_VALUE) dist[i] = -1;
-        }
-
-        return dist;
-		
-		
-		
-		
-		
-	}
-	
+        st.push(src);
+    }
 
 }
 
