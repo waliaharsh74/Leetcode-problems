@@ -26,52 +26,40 @@ class GFG {
 }
 // } Driver Code Ends
 
-class Pair{
-    int r, c;
-    Pair(int r,int c){
-        this.r=r;
-        this.c=c;
-    }
-}
+
 class Solution {
-    
     // Function to find the number of islands.
     public int numIslands(char[][] grid) {
+        // Code here
+        int cnt=0;
         int n=grid.length;
         int m=grid[0].length;
         boolean vis[][]=new boolean[n][m];
-        int count=0;
+        
+        
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]=='1'&&!vis[i][j]){
-                    count++;
-                    bfs(grid,i,j,vis);
+                if(!vis[i][j] && grid[i][j]=='1'){
+                    dfs(i,j,grid,vis);
+                    cnt++;
                 }
             }
         }
-        return count;
-        // Code here
+        return cnt;
+        
+        
     }
-    void bfs(char[][] grid,int row,int col,boolean vis[][]){
+    void dfs(int row,int col,char[][] grid,boolean vis[][]){
+        vis[row][col]=true;
         int n=grid.length;
         int m=grid[0].length;
-        ArrayDeque<Pair> q=new ArrayDeque<>();
-        q.add(new Pair(row,col));
-        vis[row][col]=true;
-        while(!q.isEmpty()){
-            Pair cur=q.poll();
-            int r=cur.r;
-            int c=cur.c;
-            for(int dr=-1;dr<=1;dr++){
-                for(int dc=-1;dc<=1;dc++){
-                    int nrow=r+dr;
-                    int ncol=c+dc;
-                    
-                    if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]=='1'&& !vis[nrow][ncol]){
-                        q.add(new Pair(nrow,ncol));
-                        vis[nrow][ncol]=true;
-                        
-                    }
+        for(int i=-1;i<=1;i++){
+            for(int j=-1;j<=1;j++){
+                int delr=row+i;
+                int delc=col+j;
+                
+                if(delr>=0 && delc >=0 && delr<n && delc<m && !vis[delr][delc] && grid[delr][delc]=='1'){
+                    dfs(delr,delc,grid,vis);
                 }
             }
         }
