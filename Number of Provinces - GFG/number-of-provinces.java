@@ -31,44 +31,41 @@ class GFG {
 
 //User function Template for Java
 
-
 class Solution {
-    
-    public  void dfs(int node, 
-       ArrayList<ArrayList<Integer>> adj , 
-       int vis[]) {
-        vis[node] = 1; 
-        for(int i=0;i<adj.size();i++) {
-            if(adj.get(node).get(i)==1 && vis[i] == 0) {
-                dfs(i, adj, vis); 
-            }
-        }
-    }
-    
-    int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
-        ArrayList<ArrayList<Integer>> adjLs = new ArrayList<ArrayList<Integer>>(); 
-        for(int i = 0;i<V;i++) {
-            adjLs.add(new ArrayList<Integer>()); 
+    static int numProvinces(ArrayList<ArrayList<Integer>> adj, int v) {
+        // code here
+        
+        ArrayList<ArrayList<Integer>> adj2=new ArrayList<ArrayList<Integer>>();
+        for(int i = 0;i<v;i++) {
+            adj2.add(new ArrayList<Integer>()); 
         }
         
-        // to change adjacency matrix to list 
-        for(int i = 0;i<V;i++) {
-            for(int j = 0;j<V;j++) {
-                // self nodes are not considered 
-                if(adj.get(i).get(j) == 1 && i != j) {
-                    adjLs.get(i).add(j); 
-                    adjLs.get(j).add(i); 
+        for(int i=0;i<adj.size();i++){
+            for(int j=0;j<adj.get(i).size();j++){
+                if(adj.get(i).get(j)==1){
+                    adj2.get(i).add(j);
+                    adj2.get(j).add(i);
                 }
             }
         }
-        int vis[] = new int[V]; 
-        int cnt = 0; 
-        for(int i = 0;i<V;i++) {
-            if(vis[i] == 0) {
-               cnt++;
-               dfs(i, adj, vis); 
+        
+        int cnt=0;
+        boolean vis[]=new boolean[v];
+        for(int i=0;i<v;i++){
+            if(!vis[i]){
+                dfs(i,adj2,vis);
+                cnt++;
             }
         }
-        return cnt; 
+        return cnt;
+        
+    }
+    static void dfs(int src,ArrayList<ArrayList<Integer>> adj,boolean vis[]){
+        vis[src]=true;
+        for(Integer neighbor:adj.get(src)){
+            if(!vis[neighbor]){
+                dfs(neighbor,adj,vis);
+            }
+        }
     }
 };
