@@ -41,49 +41,45 @@ class Solution
 {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor)
     {
-        // Code here
-        int n=image.length;
-        int m=image[0].length;
-        boolean vis[][]=new boolean[n][m];
-        bfs(image,sr,sc,newColor,vis);
-        return image;
-    }
-    
-    void bfs(int[][] image, int sr, int sc, int newColor,boolean vis[][]){
+        // Code here 
         int n=image.length;
         int m=image[0].length;
         int color=image[sr][sc];
-        ArrayDeque<Pair> q=new ArrayDeque<>();
-        q.add(new Pair(sr,sc));
-        vis[sr][sc]=true;
         image[sr][sc]=newColor;
+        boolean[][]vis=new boolean[n][m];
+        vis[sr][sc]=true;
+        ArrayDeque<Pair>q=new ArrayDeque<>();
+        q.add(new Pair(sr,sc));
+        
         while(!q.isEmpty()){
             Pair cur=q.poll();
             int r=cur.r;
             int c=cur.c;
-            int delrow [] ={-1,0,1,0};
-            int delcol [] ={0,1,0,-1};
+            int delr[]={-1,0,1,0};
+            int delc[]={0,1,0,-1};
             for(int i=0;i<4;i++){
-                int nrow=r+delrow[i];
-                int ncol=c+delcol[i];
-
-                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && 
-                !vis[nrow][ncol] && image[nrow][ncol]==color ){
+                int nrow=r+delr[i];
+                int ncol=c+delc[i];
+                
+                if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && image[nrow][ncol]==color && !vis[nrow][ncol]){
                     image[nrow][ncol]=newColor;
-                    q.add(new Pair(nrow,ncol));
                     vis[nrow][ncol]=true;
+                    q.add(new Pair(nrow,ncol));
                 }
             }
-            
         }
-
+        return image;
+        
     }
+    
+   
 }
 
 class Pair{
-    int r, c;
+    int r;
+    int c;
     Pair(int r,int c){
         this.r=r;
         this.c=c;
     }
-}  
+}
