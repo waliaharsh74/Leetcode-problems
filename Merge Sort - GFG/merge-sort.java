@@ -60,65 +60,38 @@ class Solution
     void merge(int arr[], int l, int m, int r)
     {
          // Your code here
-           int n1 = m - l + 1;
-        int n2 = r - m;
- 
-        /* Create temp arrays */
-        int L[] = new int[n1];
-        int R[] = new int[n2];
- 
-        /*Copy data to temp arrays*/
-        for (int i = 0; i < n1; ++i)
-            L[i] = arr[l + i];
-        for (int j = 0; j < n2; ++j)
-            R[j] = arr[m + 1 + j];
- 
-        /* Merge the temp arrays */
- 
-        // Initial indexes of first and second subarrays
-        int i = 0, j = 0;
- 
-        // Initial index of merged subarray array
-        int k = l;
-        while (i < n1 && j < n2) {
-            if (L[i] <= R[j]) {
-                arr[k] = L[i];
-                i++;
+        int merged[]=new int[r-l+1];
+        int i1=l;
+        int i2=m+1;
+        int i=0;
+        while(i1<=m && i2<=r){
+            if(arr[i1]>=arr[i2]){
+                merged[i++]=arr[i2++];
             }
-            else {
-                arr[k] = R[j];
-                j++;
+            else{
+                merged[i++]=arr[i1++];
             }
-            k++;
         }
- 
-        /* Copy remaining elements of L[] if any */
-        while (i < n1) {
-            arr[k] = L[i];
-            i++;
-            k++;
+        
+        while(i1<=m){
+            merged[i++]=arr[i1++];
         }
- 
-        /* Copy remaining elements of R[] if any */
-        while (j < n2) {
-            arr[k] = R[j];
-            j++;
-            k++;
+        while(i2<=r){
+            merged[i++]=arr[i2++];
         }
+        
+        for(int k=0,j=l;k<merged.length;k++,j++){
+            arr[j]=merged[k];
+        }
+         
     }
     void mergeSort(int arr[], int l, int r)
     {
         //code here
-        if (l < r) {
-            // Find the middle point
-            int m = l + (r - l) / 2;
- 
-            // Sort first and second halves
-            mergeSort(arr, l, m);
-            mergeSort(arr, m + 1, r);
- 
-            // Merge the sorted halves
-            merge(arr, l, m, r);
-        }
+        if(l>=r)return;
+        int mid=l+(r-l)/2;
+        mergeSort(arr,l,mid);
+        mergeSort(arr,mid+1,r);
+        merge(arr,l,mid,r);
     }
 }
