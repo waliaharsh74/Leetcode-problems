@@ -64,21 +64,24 @@ class Solution
     // N : size of the array arr[]
     
     //Function to return length of longest subsequence of consecutive integers.
-	static int findLongestConseqSubseq(int a[], int N)
+	static int findLongestConseqSubseq(int arr[], int n)
 	{
 	   // add your code here
-	   Set<Integer> set = new HashSet<>();
-		for(int e: a) set.add(e);
-		int ans = 1;
-		for(int e: set) {
-			if(!set.contains(e-1)) {
-				int len = 1;
-				while(set.contains(++e)) {
-					len++;
-				}
-				ans = Math.max(ans, len);
-			} 
-		}
-		return ans;
-	}
+	   Set<Integer> set=new HashSet<>();
+	   for(int i=0;i<n;i++){
+	       set.add(arr[i]);
+	   }
+	   int ans=1;
+	   
+	   for(Integer e:set){
+	       while(!set.contains(e-1)){
+                int len=1;
+                while(set.contains(++e)){
+                    len++;
+                    ans=Math.max(len,ans);
+                }
+	       }
+	   }
+	   return ans;
+	 }
 }
