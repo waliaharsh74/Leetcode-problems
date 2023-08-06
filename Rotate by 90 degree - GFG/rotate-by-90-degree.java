@@ -1,60 +1,68 @@
 //{ Driver Code Starts
 //Initial Template for Java
 
+import java.util.*; 
 import java.io.*;
-import java.util.*;
+import java.lang.*;
 
-class GFG
+class DriverClass
 {
-    public static void main(String args[])throws IOException
-    {
-         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        int t= Integer.parseInt(read.readLine());
+	public static void main(String[] args) 
+	{ 
+	    Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
         
-        while(t-- > 0)
+        while (t-- > 0)
         {
-            int n = Integer.parseInt(read.readLine());
-            int matrix[][] = new int[n][n];
-            String st[] = read.readLine().trim().split("\\s+");
-            int k = 0;
-            for(int i = 0; i < n; i++)
-            {
-                for(int j = 0; j < n; j++)
-                    matrix[i][j] = Integer.parseInt(st[k++]);
-            }
-            Solution ob = new Solution();
-            ob.rotateby90(matrix, n);
-            for(int i = 0; i < n; i++)
-            {
-                for(int j = 0; j < n; j++)
-                    System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
+            int n = sc.nextInt();
+            int[][] arr = new int[n][n];
+            
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    arr[i][j] = sc.nextInt();
+            
+            GFG g = new GFG();
+            g.rotate(arr);
+            printMatrix (arr);
         }
-    }
+	} 
+	
+	static void printMatrix(int arr[][]) 
+	{ 
+		for (int i = 0; i < arr.length; i++) { 
+			for (int j = 0; j < arr[0].length; j++) 
+				System.out.print(arr[i][j] + " "); 
+			System.out.println(""); 
+		} 
+	} 
 }
-
 // } Driver Code Ends
 
 
 //User function Template for Java
 
-class Solution
+class GFG
 {
-    //Function to rotate matrix anticlockwise by 90 degrees.
-    static void rotateby90(int matrix[][], int n) 
-    { 
-        // code here
-        int ans[][]=new int [n][n];
+    static void rotate(int matrix[][]) 
+    {
+        // Code Here
+        int n=matrix.length;
+        int ans[][]=new int[n][n];
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                ans[n-1-j][i]=matrix[i][j];
+            int k=0;
+            for(int j=n-1;j>=0;j--){
+                ans[j][i]=matrix[i][k++];
+                
             }
         }
         for(int i=0;i<n;i++){
+            // int k=0;
             for(int j=0;j<n;j++){
-            matrix[i][j]=ans[i][j];
+                matrix[i][j]=ans[i][j];
+                
             }
         }
+        
+        
     }
 }
