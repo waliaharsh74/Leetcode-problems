@@ -30,28 +30,41 @@ class GFG {
 // User function Template for Java
 
 class Solve {
-    int[] findTwoElement(int arr[], int n) {
+    int[] findTwoElement(int a[], int n) {
         // code here
-        int ans[]=new int[2];
-        Set<Integer> set=new HashSet<>();
-        for(int i=0;i<n;i++){
-            if(!set.contains(arr[i])){
-                set.add(arr[i]);
+        int[]ans=new int[2];
+        int xor=0;
+        for(int i=0;i<a.length;i++){
+            xor=xor^a[i];
+            xor=xor^(i+1);
+        }
+        int sum=xor&(-xor);
+        int sum1=0;
+        int sum2=0;
+
+        for(int i=0;i<a.length;i++){
+            if((a[i]&sum)>0){
+                sum1=sum1^a[i];
             }
             else{
-                
-                ans[0]=arr[i];
-                // break;
+                sum2=sum2^a[i];
             }
         }
-        for(int i=0;i<n;i++){
-            if(!set.contains(i+1)){
-                // System.out.println(i+1);
-                ans[1]=i+1;
-                break;
+        for(int i=0;i<a.length;i++){
+            if(((i+1)&sum)>0){
+                sum1=sum1^(i+1);
             }
-            
+            else{
+                sum2=sum2^(i+1);
+            }
         }
-        return ans;
+        int cnt = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == sum1) cnt++;
+        }
+
+        if (cnt == 2) return new int[] {sum1, sum2};
+        return new int[] {sum2, sum1};
+        // return ans;
     }
 }
