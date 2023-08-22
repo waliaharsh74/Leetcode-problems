@@ -28,28 +28,29 @@ class RodCutting {
 class Solution{
     public int cutRod(int price[], int n) {
         //code here
-        int dp[] = new int[n+1];
-		Arrays.fill(dp, -1);
-		dp[0] = 0;
-		
-		rodCuttingProblemDP(price, n, dp);
-		
-//		for(int e: dp) {
-//			System.out.print(e+" ");
-//		}
-//		
-		return dp[n];
+        int dp[] = new int[n + 1];
+        dp[0] = 0;
+
+        for (int i = 1; i <= n; i++) {
+            int max = Integer.MIN_VALUE;
+            for (int j = 1; j <= i; j++) {
+                max = Math.max(max, price[j - 1] + dp[i - j]);
+            }
+            dp[i] = max;
+        }
+
+        return dp[n];
     }
-    int rodCuttingProblemDP(int price[], int n, int[] dp) {
-		if(n < 0) return -100000;
-		if(dp[n] != -1) return dp[n];
+    int mem(int price[], int n,int dp[]){
+        if(n<0)return Integer.MIN_VALUE;
+        if(dp[n] != -1) return dp[n];
 		if(n == 0) return 0;
-		
-		int max = -1;
-		for(int i = 0; i<price.length; i++) {
-			max = Math.max(max, price[i] + rodCuttingProblemDP(price, n-i-1, dp));
-		}
-		
-		return dp[n] = max;
-	}
+        
+        
+        int max=-1;
+        for(int i=0;i<price.length;i++){
+            max=Math.max(max, price[i]+mem(price,n-i-1,dp));
+        }
+        return dp[n]=max;
+    }
 }
