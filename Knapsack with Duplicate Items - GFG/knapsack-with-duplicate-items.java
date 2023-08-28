@@ -43,19 +43,19 @@ class Solution{
         return mem(n-1,W,val,wt,dp);
     }
     static int mem(int i, int W, int val[], int wt[],int dp[][]){
-        // if(i==0){
-        //     // if(W%wt[i]==0){
-        //     //     return (W/wt[i])*val[i];
-        //     // }
+        if(i==0){
+            // if(W%wt[i]==0){
+            //     return (W/wt[i])*val[i];
+            // }
             
-        //     if(W>=wt[i]){
-        //         return val[i];
-        //     }
-        //     else{
-        //         return 0;
-        //     }
+            if(W>=wt[i]){
+                return (W/wt[i])*val[i];
+            }
+            else{
+                return 0;
+            }
             
-        // }
+        }
         
         if(i == 0){
         return ((int)(W/wt[0])) * val[0];
