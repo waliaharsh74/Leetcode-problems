@@ -29,28 +29,22 @@ class Solution
     public int longestPalinSubseq(String s)
     {
         //code here
-        StringBuilder a=new StringBuilder();
-        a.append(s);
-        StringBuilder b=a.reverse();
-        // System.out.println(a);
-        // return 0;
-        int m=s.length();
-        int dp[][]=new int[m+1][m+1];
-        return lcs(s,b,m,m,dp);
-        
-    }
-    int lcs(String s,StringBuilder b,int m,int n,int dp[][]){
-        for(int i=1;i<=m;i++){
-            for(int j=1;j<=m;j++){
+        int n=s.length();
+        StringBuilder b=new StringBuilder(s);
+        b.reverse();
+        int dp[][]=new int[n+1][n+1];
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
                 if(s.charAt(i-1)==b.charAt(j-1)){
-                    dp[i][j]=dp[i-1][j-1]+1;
-                }
-                else{
-                    dp[i][j]=Math.max(dp[i][j-1],dp[i-1][j]);
                     
+                    dp[i][j]=1+dp[i-1][j-1];
+                }else{
+                    dp[i][j]=Math.max(dp[i][j-1],dp[i-1][j]);
                 }
             }
+            
         }
-        return dp[m][m];
+        return dp[n][n];
+        
     }
 }
