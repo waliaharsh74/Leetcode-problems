@@ -34,44 +34,27 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    static int uniquePaths(int m, int n, int[][] obstacleGrid) {
+    static int uniquePaths(int m, int n, int[][] grid) {
         // code here
-    //   return countWaysUtil(m-1,n-1,dp);
-        int mod=1000000007;
-       int[][] path = new int[m][n];
+        int dp[][]=new int[m+1][n+1];
+        // dp[0][0]=1;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 && j==0 && grid[i][j]==1)dp[i][j]=1;
+                else{
+                int up=0;
+                int down=0;
+                if(i>0)up=dp[i-1][j];
+                if(j>0)down=dp[i][j-1];
+                if(grid[i][j]==1)
+                    dp[i][j]=(up+down)%1000000007;
+                }
+                
+                
+            }
+            // System.out.println();
+        }
 
-	for (int i = 0; i < m; i++) {
-		if (obstacleGrid[i][0] == 0)  {
-			path[i][0] = 0;
-			//on the first column, if there is an obstacle, the rest are blocked. 
-			//no need to continue.
-			break;  
-		} else
-			path[i][0] = 1;
-	}
-	
-	for (int j = 0; j < n; j++) {
-		if (obstacleGrid[0][j] == 0)  {
-			path[0][j] = 0;
-			//First row, once obstacle found, the rest are blocked.
-			break; 
-		} else
-			path[0][j] = 1;
-	}
-	
-	for (int i = 1; i < m; i++) {
-		for (int j = 1; j < n; j++) {
-			if (obstacleGrid[i][j] == 0) 
-				path[i][j] = 0;
-			else
-				path[i][j] = (path[i-1][j] + path[i][j-1])%mod;
-		}
-	}
-	return path[m-1][n-1];
-    
-        
-        
+        return dp[m-1][n-1];
     }
-    
-
-}
+};
