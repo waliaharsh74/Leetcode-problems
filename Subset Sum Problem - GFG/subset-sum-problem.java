@@ -37,25 +37,27 @@ class Solution{
 
 
     static Boolean isSubsetSum(int n, int arr[], int sum){
-        int dp[][]=new int[n][sum+1];
-    for(int row[]: dp)
-    Arrays.fill(row,-1);
         // code here
-        return mem(arr,n-1,sum,dp);
-        
-    }
-    static Boolean mem(int arr[],int i,int sum,int dp[][]){
-        if(sum==0)return true;
-        if(i==0)return arr[i]==sum;
-        
-    if(dp[i][sum]!=-1)
-        return dp[i][sum]==0?false:true;
-        boolean notTake=mem(arr,i-1,sum,dp);
-        boolean take=false;
-        if(arr[i]<=sum){
-            take=mem(arr,i-1,sum-arr[i],dp);
-            dp[i][sum]=notTake||take?1:0;
+        boolean dp[][]=new boolean [n][sum+1];
+        for(int i=0;i<n;i++){
+            
+            dp[i][0]=true;
         }
-        return(take ||notTake);
+        if(arr[0]<=sum)
+            dp[0][arr[0]]=true;
+        for(int i=1;i<n;i++){
+            for(int j=1;j<=sum;j++){
+                boolean pick=false;
+                if(j>=arr[i]){
+                    
+                pick=dp[i-1][j-arr[i]];
+                }
+                
+                boolean nopick=dp[i-1][j];
+                dp[i][j]=pick|nopick;
+                
+            }
+        }
+        return dp[n-1][sum];
     }
 }
