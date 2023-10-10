@@ -33,36 +33,35 @@ class DriverClass {
 
 class Solution {
     // Function to detect cycle in a directed graph.
-    public boolean isCyclic(int v, ArrayList<ArrayList<Integer>> adj) {
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
         // code here
-        int indeg[]=new int[v];
-        for(int i=0;i<v;i++){
-            for(Integer neighbor:adj.get(i)){
-                indeg[neighbor]++;
-            }
-        }
-
-        ArrayDeque<Integer>q=new ArrayDeque<>();
-
-        for(int i=0;i<v;i++){
-            if(indeg[i]==0)
-                q.add(i);
-        }
-        int cnt=0;
-
-        while(!q.isEmpty()){
-            int cur=q.poll();
-            cnt++;
-            for(Integer neighbor:adj.get(cur)){
-                indeg[neighbor]--;
-                if(indeg[neighbor]==0){
-                    q.add(neighbor);
-                    
+        int vis[]=new int [V];
+        int pathVis[]=new int [V];
+        for(int i=0;i<V;i++){
+            if(vis[i]!=1){
+                if(dfs(i,adj,vis,pathVis)){
+                    return true;
                 }
             }
+            
         }
-        // System.out.println(cnt);
-        if(cnt==v)return false;
-        return true;
+        return false;
+    }
+    boolean dfs(int src,ArrayList<ArrayList<Integer>> adj,int vis[],int pathVis[]){
+        vis[src]=1;
+        pathVis[src]=1;
+        
+        for(Integer it:adj.get(src)){
+            if(vis[it]!=1){
+                if(dfs(it,adj,vis,pathVis)){
+                    return true;
+                }
+            }
+            else if(pathVis[it]==1){
+                return true;
+            }
+        }
+        pathVis[src]=0;
+        return false;
     }
 }
