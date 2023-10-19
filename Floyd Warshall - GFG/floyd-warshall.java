@@ -38,34 +38,40 @@ class GFG
 
 class Solution
 {
-    public void shortest_distance(int[][] matrix)
+    public void shortest_distance(int[][] mat)
     {
         // Code here 
-        int n=matrix.length;
-        
+        int n=mat.length;
+        int m=mat[0].length;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==-1){
+                    mat[i][j]=(int)(1e9);
+                }
+            }
+        }
         for(int v=0;v<n;v++){
+            
             for(int i=0;i<n;i++){
-                if(matrix[v][i]==-1){
-                    matrix[v][i]=(int)1e8;
+                for(int j=0;j<m;j++){
+                    if(i==j){
+                        mat[i][j]=0;
+                    }
+                    else{
+                        mat[i][j]=Math.min(mat[i][j],mat[i][v]+mat[v][j]);
+                    }
                 }
             }
         }
         
-        for(int v=0;v<n;v++){
-            for(int i=0;i<n;i++){
-                for(int j=0;j<n;j++){
-                    matrix[i][j]=Math.min(matrix[i][j],matrix[i][v]+matrix[v][j]);
+         for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==(int)(1e9)){
+                    mat[i][j]=-1;
                 }
             }
         }
         
-        for(int v=0;v<n;v++){
-            for(int i=0;i<n;i++){
-                if(matrix[v][i]==1e8){
-                    matrix[v][i]=-1;
-                }
-            }
-        }
         
         
     }
