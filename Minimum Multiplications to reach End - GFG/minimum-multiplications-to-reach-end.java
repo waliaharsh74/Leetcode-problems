@@ -35,41 +35,44 @@ class GFG {
 
 class Solution {
     int minimumMultiplications(int[] arr, int start, int end) {
-
+        
         // Your code here
-        if (start == end) {
-            return 0; // No steps needed if start and end are the same
+        // ArrayList<ArrayList<>> adj=new ArrayList<>();
+        int mod=100000; 
+        if(start==end)return 0;
+        PriorityQueue<pair>pq=new PriorityQueue<>((x,y)->x.st-y.st);
+        int dist[]=new int[100000];
+        for(int i=0;i<100000 ;i++){
+            dist[i]=(int )(1e9);
         }
-
-        Set<Integer> visited = new HashSet<>();
-        Queue<Integer> queue = new ArrayDeque<>();
-        queue.offer(start);
-        visited.add(start);
-        int steps = 0;
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            steps++;
-
-            for (int i = 0; i < size; i++) {
-                int current = queue.poll();
-
-                for (int num : arr) {
-                    int next = (current * num) % 100000;
-
-                    if (next == end) {
-                        return steps;
+        dist[start]=0;
+        pq.add(new pair(start,0));
+        while(!pq.isEmpty()){
+            pair cur=pq.poll();
+            int st=cur.st;
+            int node=cur.node;
+            for(int i=0;i<arr.length;i++){
+                // if
+                int mul=(node*arr[i])%mod;
+                if(dist[mul]>st+1){
+                    dist[mul]=st+1;
+                    if(mul==end){
+                    return st+1;
                     }
-
-                    if (!visited.contains(next)) {
-                        visited.add(next);
-                        queue.offer(next);
-                    }
+                    pq.add(new pair(mul,st+1));
                 }
+                
+                
             }
         }
-
         return -1;
-        
+    }
+}
+class pair{
+    int st;
+    int node;
+    pair(int node,int st){
+        this.node=node;
+        this.st=st;
     }
 }
